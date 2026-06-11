@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2027학년도 6월 모의평가 영어 – 읽기 부분 문장 추출 - 해석 연습지</title>
+  <style>
+    :root {
+      --font-size: 15px;
+      --answer-lines: 4;
+      --line-step: 30px;
+      --item-gap: 18px;
+      --page-padding: 14mm;
+      --english-color: #111827;
+      --muted-color: #64748b;
+      --rule-color: #cbd5e1;
+      --accent-color: #2563eb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #e2e8f0;
+      color: #111827;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: var(--font-size);
+      line-height: 1.55;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      align-items: end;
+      padding: 14px 18px;
+      border-bottom: 1px solid #cbd5e1;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .toolbar label {
+      display: grid;
+      gap: 5px;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .toolbar input {
+      width: 100%;
+      accent-color: var(--accent-color);
+    }
+
+    .toolbar output {
+      color: #0f172a;
+      font-variant-numeric: tabular-nums;
+      font-weight: 800;
+    }
+
+    .toolbar button {
+      min-height: 38px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--accent-color);
+      color: white;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .toolbar button.secondary {
+      border: 1px solid #cbd5e1;
+      background: white;
+      color: #0f172a;
+    }
+
+    .sheet {
+      width: min(100%, 210mm);
+      margin: 18px auto;
+      padding: var(--page-padding);
+      background: white;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.16);
+    }
+
+    header {
+      margin-bottom: 22px;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.55rem;
+      line-height: 1.25;
+    }
+
+    .meta {
+      margin: 0;
+      color: var(--muted-color);
+      font-size: 0.88rem;
+    }
+
+    h2 {
+      break-after: avoid;
+      margin: 28px 0 12px;
+      border-left: 5px solid var(--accent-color);
+      padding-left: 10px;
+      font-size: 1.1rem;
+    }
+
+    .item {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: var(--item-gap);
+    }
+
+    .sentence {
+      display: grid;
+      grid-template-columns: 2.7em 1fr;
+      gap: 8px;
+      color: var(--english-color);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1em;
+      line-height: 1.5;
+    }
+
+    .number {
+      color: var(--accent-color);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .answer-label {
+      margin: 7px 0 3px 3.3em;
+      color: var(--muted-color);
+      font-size: 0.78em;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .answer-space {
+      height: calc(var(--answer-lines) * var(--line-step));
+      margin-left: 3.3em;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent calc(var(--line-step) - 1px),
+        var(--rule-color) calc(var(--line-step) - 1px),
+        var(--rule-color) var(--line-step)
+      );
+    }
+
+    @page {
+      size: A4;
+      margin: 10mm;
+    }
+
+    @media print {
+      body { background: white; }
+      .toolbar { display: none; }
+      .sheet {
+        width: auto;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <form class="toolbar" aria-label="인쇄 설정">
+    <label>해석 줄 수 <output for="answerLines" id="answerLinesValue">4</output>
+      <input id="answerLines" data-var="--answer-lines" data-unit="" type="range" min="2" max="8" step="1" value="4">
+    </label>
+    <label>줄 간격 <output for="lineStep" id="lineStepValue">30px</output>
+      <input id="lineStep" data-var="--line-step" data-unit="px" type="range" min="22" max="46" step="1" value="30">
+    </label>
+    <label>글자 크기 <output for="fontSize" id="fontSizeValue">15px</output>
+      <input id="fontSize" data-var="--font-size" data-unit="px" type="range" min="12" max="20" step="1" value="15">
+    </label>
+    <label>문항 간격 <output for="itemGap" id="itemGapValue">18px</output>
+      <input id="itemGap" data-var="--item-gap" data-unit="px" type="range" min="8" max="36" step="1" value="18">
+    </label>
+    <label>페이지 여백 <output for="pagePadding" id="pagePaddingValue">14mm</output>
+      <input id="pagePadding" data-var="--page-padding" data-unit="mm" type="range" min="6" max="24" step="1" value="14">
+    </label>
+    <button type="button" onclick="window.print()">인쇄 / PDF 저장</button>
+    <button class="secondary" type="button" id="resetSettings">기본값</button>
+  </form>
+
+  <main class="sheet" id="worksheet"></main>
+
+  <script id="worksheet-data" type="application/json">{
+  "title": "2027학년도 6월 모의평가 영어 – 읽기 부분 문장 추출",
+  "note": "아래 문장들은 27학년도 6월 모의평가 영어 문제지에서 첫 두 장(듣기 영역)을 제외하고 읽기 영역에 등장하는 영어 문장을 하나씩 분리하여 정리한 것이다. 한국어 안내문, 보기 문항 및 숫자 표기는 제외하였다.",
+  "sections": [
+    {
+      "title": "동물 의식과 ‘the ghost’ (문항 21)",
+      "sentences": [
+        "In fact, scientists attributing consciousness to any animal is so recent that the Internet is older.",
+        "In 1976 a zoologist named Donald Griffin published The Question of Animal Awareness, a book arguing that animal cognition ought to be taken seriously.",
+        "He and a colleague had been responsible in 1944 for discovering that bats navigate by echolocation.",
+        "Now, after a lifetime spent watching those creatures, he became convinced they had inner worlds.",
+        "They had flexible behavior, he said, or the ability to change their behavior as external circumstances changed — a hallmark of true intelligence.",
+        "He’d watched bats develop clever techniques for finding food; they could clearly make decisions on the fly and exhibited many of the same problem‑solving abilities as humans.",
+        "Animal thought and reason ought to be seriously studied, he argued.",
+        "After all, despite the flourishing of neuroscience, no one had yet found any part of the brain unique to humans that might be responsible for this hallowed “consciousness”.",
+        "Wasn’t it time to give up the ghost?"
+      ]
+    },
+    {
+      "title": "자동차 디자인과 ‘얼굴’ (문항 22)",
+      "sentences": [
+        "Car manufacturers know people form emotional attachments to automobile “faces” and use the fact to guide their design and marketing efforts.",
+        "“In today’s hyper‑competitive car market, designers are focusing on faces as part of a broader effort to design cars that appeal to buyers — tapping psychologists, anthropologists and other experts in human behavior, and even monitoring the brain waves of focus‑group participants,” the Wall Street Journal reported in a 2006 article entitled ‘Why Cars Got Angry’.",
+        "Automotive research shows “70 % of drivers identify and judge vehicles by the headlights and grille,” the article reported.",
+        "In the first years of the twenty‑first century, the trend was toward angrier, scarier vehicles’ faces.",
+        "The article hypothesized that these faces help drivers feel safer in heavier traffic amidst more oversize SUVs.",
+        "Reflecting our tumultuous times, the “scary look” shows no sign of slowing in the new millennium.",
+        "“Buoyant sales of cars with styling which suggests power or bad temper seem to confirm that customers are happy with this look,” an international automotive site reported in 2017."
+      ]
+    },
+    {
+      "title": "동물 크기와 시간 (문항 23)",
+      "sentences": [
+        "A telescoping of time correlates with size.",
+        "Small animals’ reflexes must be quicker in order to control much smaller limbs and respond to rapid locomotor feedback.",
+        "Further, decision making must be streamlined in small species because their high metabolic rates and minimal energy reserves offer few choices in food‑searching activities, defending against predators, or mating behaviors.",
+        "And, perhaps most important, a short lifetime offers little time for learning from experience.",
+        "As a result, being short‑lived puts a premium on the effectiveness of preprogrammed behavior patterns that require little in the way of environmental fine‑tuning.",
+        "Large animals, in comparison, can get by with rather slower reflexes, can afford to vary their mating and food‑searching behaviors in an effort to better optimize their behaviors, and may have a considerable opportunity to learn by observation and trial and error.",
+        "Being longer‑lived puts a greater premium on learning and memory, and less on automatic preprogrammed behaviors.",
+        "In addition, living a long time or having the capacity to travel for long distances is more likely to expose an animal to significant changes in the environment."
+      ]
+    },
+    {
+      "title": "관광 산업의 변화 (문항 24)",
+      "sentences": [
+        "Before the 1950s, tourism was very much an industry which was fragmented; hotels, transport operators, travel agents and tour operators all tended to work independently of each other.",
+        "Hotels were largely in the business of selling bed nights.",
+        "Airlines and railways were in the business of selling seats.",
+        "Travel agents, of course, were selling travel and holidays, but in each case they tended to operate very much as individual businesses.",
+        "From the mid‑1950s onwards, particularly in the U.K., the growth of tour operators began to change the nature of the industry from essentially individual business activities to more integrated activities.",
+        "Hotels, for example, were beginning to see customers as wanting a range of services rather than simply buying accommodation.",
+        "So hotels began to develop shopping arcades and later to offer secretarial centres to try to increase the spend of guests within the hotel complex.",
+        "Transport operators, particularly in the airline business, saw the sale of transport services as being integral to a much wider need.",
+        "Airlines offered insurance and accommodation booking for travellers."
+      ]
+    },
+    {
+      "title": "교통수단 비율 설명 (문항 25)",
+      "sentences": [
+        "The graph above shows the percentages of weekday trips made by three different types of transportation (walking or cycling, public transport, or cars) in five regions, as reported in a 2024 research article."
+      ]
+    },
+    {
+      "title": "언어철학자 Paul Grice (문항 26)",
+      "sentences": [
+        "Paul Grice was a famous philosopher of language whose work was very influential in many areas of linguistics.",
+        "Born in 1913 in Birmingham, England, he was the son of Herbert Grice, a businessman and musician.",
+        "As an undergraduate, he earned high honors from Corpus Christi College.",
+        "After finishing graduate school, he was appointed as a lecturer at Oxford in the field of philosophy.",
+        "During World War II, however, he served in the British military for about five years.",
+        "One of his greatest contributions was to the study of language and communication.",
+        "His article “Meaning” was written in 1948, but he did not have it published until 1957.",
+        "This article was foundational in the study of language and communication.",
+        "In 1967, he left Oxford to take a job at UC Berkeley and retired from there in 1979.",
+        "In addition to being a great scholar, he was excellent at cricket and chess."
+      ]
+    },
+    {
+      "title": "Green Dewywood Drawing Competition (문항 27)",
+      "sentences": [
+        "Green Dewywood Drawing Competition: We are holding a drawing competition to encourage environmental preservation.",
+        "Use your creativity and artistic skills to show Dewywood’s green side on paper.",
+        "Theme: “Green Dewywood Through Our Eyes”.",
+        "When \u0026 Where: Sunday, June 21, 1:00 p.m. – 4:30 p.m. at Dewywood Park.",
+        "Registration: Online registration is required from June 10 to June 15 (www.greendewy*#wood△△.org).",
+        "There is no registration fee.",
+        "Competition categories: Ages 6–9 use A3 paper and crayons; ages 10–13 use A2 paper and colored pencils; ages 14–17 use A2 paper and colored markers.",
+        "One winner in each age group will be selected.",
+        "Winners will each receive a canvas bag."
+      ]
+    },
+    {
+      "title": "Summer Night Drone Event (문항 28)",
+      "sentences": [
+        "Summer Night Drone Event: Come and enjoy a magical summer night filled with fun family activities, great food, and a breathtaking drone show.",
+        "Date: Friday, July 3, 2026.",
+        "Time: 6 p.m. to 11 p.m..",
+        "Place: Aurora River Park (Parking is not available).",
+        "Attractions – Activities: laser tag, face painting and rocket making.",
+        "Movie: Deep into the Universe at 7 p.m..",
+        "Drone show: space‑themed show at 9 p.m..",
+        "Additional information: Food and beverages will be sold during the event.",
+        "You may bring a lawn chair or blanket to sit on the grass.",
+        "Note: In case of heavy rain, the event will be cancelled."
+      ]
+    },
+    {
+      "title": "유럽 의복의 진화 (문항 29)",
+      "sentences": [
+        "Fashion is always deeply cultural, and an excellent example of this can be seen in the evolution of European clothing.",
+        "At the beginning of the Middle Ages, clothing tended to be simple and was frequently made of rough wool or animal furs.",
+        "With advances in cloth making, however, fashion began moving toward styles that were more elaborate and form‑fitting.",
+        "In the Renaissance and Elizabethan eras, styles became even more refined.",
+        "The clothes that wealthy people were wearing became increasingly fancier, with a particular emphasis being placed on smaller waists.",
+        "The connection between clothing and social status was so pronounced that laws were enacted to limit the wearing of certain luxury items.",
+        "Allowed only for higher social classes, luxurious styles and decorations such as feathers, silk or velvet were used as a means of demonstrating one’s standing in society.",
+        "This was further reinforced as upper‑class styles came to be explicitly incorporated into cultural ceremonies so that their wearers’ roles could be identified clearly."
+      ]
+    },
+    {
+      "title": "고전 희곡과 뮤지컬 스크립트 (문항 30)",
+      "sentences": [
+        "Classical works by playwrights such as Shakespeare or Euripides or even American musical song lyrics contain unconventional and unrealistic methods of communicating characters’ thoughts and feelings, and take a bit more skill and patience to understand.",
+        "The reader must be mindful not to let the poetic form or archaic word usage get in the way of getting meaningful information about the story, but instead see the form itself as a revealing stylistic technique.",
+        "Scripts with complex language or unfamiliar styles may require several additional readings in order for the nuance to become clear.",
+        "Musical theater pieces are particularly difficult to visualize when reading because of the diminished emphasis on dialogue and a significant emphasis on song and dance.",
+        "For example, when the music and lyrics are removed from a musical theater script, what is left is the dialogue, known as the book or libretto, and it can be very thick.",
+        "There is an emphasis on dance, movement or action in musical theater that can be time‑consuming when actually performed on stage, but can take very little space when typed into a play script."
+      ]
+    },
+    {
+      "title": "보존과 보전 (문항 31)",
+      "sentences": [
+        "Ever since the early Enlightenment, preservation and conservation have been closely related.",
+        "Taken as near synonyms, their meaning is to maintain an object or system insofar as possible in its present state, to protect it from change, usually for contemplation, research, display and perhaps for use.",
+        "Conservationists who distinguish their activities from preservation emphasize conservation’s restorative aspects — restoring a historical musical instrument, for example, or a painting, or a dinosaur, or an ecosystem.",
+        "Conservationists acknowledge change but try to manage it in order to prolong a(n) ___ state.",
+        "Preservationists (who may nonetheless call themselves conservationists) think of themselves more as protectors.",
+        "They sometimes criticize conservationists for setting an additional priority on yield or harvest or use, rather than interfering as minimally as possible in order to preserve the original object or system, as they would do.",
+        "Preservationists would, for example, prefer to keep a historical musical instrument “as found” in a deteriorated state, for study, rather than to restore or repair it for display or use."
+      ]
+    },
+    {
+      "title": "비언어적 의사소통 (문항 32)",
+      "sentences": [
+        "Speakers don’t always put everything that’s important to them into words.",
+        "Very often you can understand a speaker’s meaning by observing their nonverbal behaviors such as a change in a vocal tone or volume, eye contact, facial expressions and gestures.",
+        "As it is easy to misinterpret nonverbal behavior, effective listeners verbally confirm their interpretations of someone’s nonverbal communication.",
+        "A question as simple as “Do your nods indicate a yes vote?” can make sure that everyone is on the same wavelength.",
+        "If, as nonverbal research indicates, more than half of a speaker’s meaning is conveyed nonverbally, we are missing a lot of important information if we fail to “listen” to nonverbal behavior.",
+        "Even Freud suggested that “he that has eyes to see and ears to hear may convince himself that no mortal can keep a secret”.",
+        "If his lips are silent, he chatters with his fingertips; betrayal oozes out of him at every pore.",
+        "No wonder it is difficult for most people to ___ in a face‑to‑face group discussion."
+      ]
+    },
+    {
+      "title": "상상력과 감정 (문항 33)",
+      "sentences": [
+        "Imagination continues to function when perception is not actively discerning objects, in cases of emotion, disease and sleep.",
+        "Emotions dispose one to see the world in a distorted way.",
+        "A coward’s perceptual disposition is affected by his disposition to experience fear.",
+        "A lover’s expectations are affected by desire.",
+        "In such cases, a small similarity between a perceived object and the thing one expects to see can lead to the misidentification of the perceived object as that thing.",
+        "The coward sees the enemy, while the lover sees the object of desire everywhere.",
+        "The more affected one is, ___.",
+        "While the central organ of sense normally functions by comparing similarities and differences, emotions dispose one to discern objects inaccurately.",
+        "The greater the emotional investment, the more biased one’s perception."
+      ]
+    },
+    {
+      "title": "미술품 가치 (문항 34)",
+      "sentences": [
+        "The dependent and shifting nature of art values, not only on the market but inherently, is uppermost in the mind of today’s art collector, whether he buys for himself or as the representative of an institution.",
+        "Acquiring a work is acquiring a piece of art history, or it is acquiring nothing (beyond, that is, an object of personal enjoyment in the same class as a cat or a souvenir).",
+        "In signing his check the collector asserts his belief in the future presence of the work as a significant point attained by art as a whole.",
+        "History, however, is open to anything and the merit of the chosen painting or sculpture has — at best — only the validation of a present‑day consensus.",
+        "This consensus is all but certain to be displaced, as others have been in the past.",
+        "In the last analysis, committing himself to a painting is the collector’s own act.",
+        "Through it he courageously affirms not only his aesthetic judgment, from whatever source it be derived, but the conviction that ___."
+      ]
+    },
+    {
+      "title": "신체 크기와 부상 (문항 35)",
+      "sentences": [
+        "The bigger someone is, the more damage they can do to themselves through even a relatively innocuous accident.",
+        "Despite toddlers falling over and bumping themselves regularly, the injuries they sustain are rarely serious.",
+        "Their relatively thick bones in comparison to their mass mean they rarely build up enough energy, even at top speed, to do themselves much damage.",
+        "Because of their increased mass (compounded by the fact that they are falling from a greater height and that their reactions may be slower), adults falling over will impact the ground with a much larger force.",
+        "The nonlinear relationship between mass and bone strength means that although their bones are thicker than a toddler’s in absolute terms, they may not be relatively thick enough to compensate for the larger impact caused by their increased mass.",
+        "The body mass index (BMI) can serve as a convenient way for non‑experts to examine their health conditions in daily lives.",
+        "For the same reasons, taller people have been found to suffer more fall‑related injuries — like hip breaks — than shorter people."
+      ]
+    },
+    {
+      "title": "식물과 곤충의 ‘진화적 대화’ (문항 36)",
+      "sentences": [
+        "Plants have evolved defenses almost as diverse as the number of genera.",
+        "Some load their tissues with harsh compounds that either are unpleasant to insects or intoxicate them, encouraging the insects to go bother another plant or at least slowing down their eating.",
+        "The back‑and‑forth is not a matter of natural balance, but more like a drawn‑out evolutionary conversation.",
+        "New plant defenses unintentionally select for insects with ways to get around them, which in turn help bring about more resilient and resistant plant species.",
+        "New variations, shading into entire new forms and adaptations, maintain the stalemate.",
+        "Plants can release chemical compounds that let their same‑species neighbors know that an attack is likely coming, pushing those nearby plants to start building up defensive compounds in their tissues.",
+        "Some of these cues even attract insect predators, a call for an assist that benefits both the plant and its bug‑eating collaborators.",
+        "Structural defenses like thick coats of wax on leaves may prevent some insect species from damaging the plant tissues altogether.",
+        "Nor are individual plants entirely on their own while under attack."
+      ]
+    },
+    {
+      "title": "문화적 프레임 속의 볼거리 (문항 37)",
+      "sentences": [
+        "Although there may be elements that trigger instinctive response, spectacle works primarily within a cultural frame and is subject to prevailing modes of perception that observers bring to bear.",
+        "By extension, spectacle is produced by working with the grain of a particular culture, blending the innovative with the established.",
+        "Thus anyone deploying spectacle may draw on a repertoire of techniques and conventions developed from previous festivals or related activities, but imitation is not enough.",
+        "Spectacle must also be spectacular.",
+        "A spectacle has to amaze spectators, outdoing previous efforts if it is to become part of the collective memory of those who witnessed and participated in it.",
+        "In saying that, we stress that creation of spectacle is neither a universal nor even an inevitable expression of culture, but is a strategy commonly used by people from many different cultures to address specific needs.",
+        "The task of creating spectacle has been likened to creating new works of literature, where writers normally feel bound by the rules and traditions of their genre yet need to show sufficient originality to impress their audiences."
+      ]
+    },
+    {
+      "title": "초고층 건물과 ‘vortex shedding’ (문항 38)",
+      "sentences": [
+        "To minimize vortex shedding, skyscraper designers do everything in their powers to confuse the wind.",
+        "To minimize building costs and maximize revenues, skyscrapers generally take the shape of squares or rectangles.",
+        "These are not particularly aerodynamic shapes, and this results in a wind phenomenon called “vortex shedding”.",
+        "As wind meets a rectangular skyscraper it pushes on the flat face of the building before flowing around its sides, where eventually it separates from the face of the structure.",
+        "The difference in pressures on the front and back faces of the building gives rise to vortices, or spinning currents of wind, that flow downstream from the building.",
+        "The vortices pull and push the building in a direction perpendicular to the wind at frequencies that can become dangerously self‑sustaining.",
+        "Orienting the building so that the longer face of the structure is parallel with prevailing winds can help.",
+        "Chopping or rounding off corners of a building can likewise make it more aerodynamic.",
+        "Roughing up the corners of the building through the careful placement of balconies or stepped corners can help by disturbing or delaying the formation of strong vortices."
+      ]
+    },
+    {
+      "title": "색채 역사에서 ‘빨강’ (문항 39)",
+      "sentences": [
+        "It was also within the range of reds that they learned early on to diversify the palette and to produce varied tones and shades, as the oldest known color terms demonstrate.",
+        "For thousands of years in the West, red was the only color worthy of that name, the only true color.",
+        "As much on the historical as hierarchical level, it exceeded all others.",
+        "Not that other colors did not exist, but they had to wait a long time before they were considered colors and then played a comparable role in material culture, social codes and systems of thought.",
+        "It was with red that humans did their first color experiments, achieved their first successes, and then constructed a chromatic universe.",
+        "Here the lexicon seems in keeping with pictorial practices and coloring techniques.",
+        "In certain languages, the same word can mean “red” or simply “colored,” depending on the context, such as coloratus in classical Latin or colorado in modern Castilian.",
+        "In other languages, the words meaning “red” and “beautiful” share a common root; for example, that is the case in Russian, in which the terms krasnyy (red) and krasivy (beautiful) belong to the same lexical family."
+      ]
+    },
+    {
+      "title": "희귀질환과 AI (문항 40)",
+      "sentences": [
+        "In the pharmaceutical industry, algorithms are being employed to find treatments and drugs for rare diseases that to date haven’t received much attention.",
+        "The hard truth has always been that pharma devotes more research and development resources to diseases that affect the rich.",
+        "The definition of rare has too often been associated with poor — that is, even if a disease is quite prevalent in a population that cannot afford to pay for it (for example, people living in the developing world), the disease has been neglected compared to First World illnesses.",
+        "By lowering the cost of data collection, mining and analysis in drug development and clinical trials, AI can help offset imbalances in the pharmaceutical industry that direct attention to diseases that “pay,” whether because the disease is more common or because it is prevalent among demographics that can pay more.",
+        "We see the democratizing power of AI to broaden the attention of the medical and research communities to find cures to traditionally neglected health issues and among traditionally neglected populations.",
+        "By lowering the cost of pharmaceutical research and development, AI can help reduce the imbalance in investment that has led to the (A) ___ of less profitable diseases, thereby broadening the focus of medical research to include (B) ___ populations."
+      ]
+    },
+    {
+      "title": "유리의 정체 (문항 41)",
+      "sentences": [
+        "The structure of glass is, frankly, a bit of a mess.",
+        "Clear and perfect as it might appear to our eyes, down at the molecular level, glass looks more like a random ball‑pit of atoms.",
+        "The technical term for this mess depends on who you’re asking: for some scientists it is an “amorphous solid,” for others a “supercooled liquid”.",
+        "In theory it’s both liquid and solid, though, given the way it behaves, in practice it’s really the latter.",
+        "In fact, at room temperature glass never behaves as a (a) liquid, even an imperceptibly viscous one, even over long periods of time (though it can “sweat” if you don’t add enough lime to the mix).",
+        "Those (b) misshapen sheets of glass you sometimes see in old stained‑glass windows, thicker at the bottom than the top, are generally not that way because the glass is slowly sinking over time.",
+        "Unless the church has endured temperatures of more than 400 °C, the chances are they are uneven because that’s the way they were blown and (c) solidified in the first place.",
+        "Flat glass was only developed in the nineteenth century and we had to wait until the middle of the twentieth century for truly flat, thin sheets of glass.",
+        "The (d) paradox is that, despite it being one of the very oldest human‑made substances, scientists still struggle to comprehend why glass behaves the way it does.",
+        "Glass seems to (e) obey most molecular laws.",
+        "As one glassmaker put it, glass is not a material; it’s a state."
+      ]
+    },
+    {
+      "title": "바이올린 연주를 통해 성장하는 Sally (문항 43–45)",
+      "sentences": [
+        "Every day after school, Sally walked home through the park.",
+        "She liked listening to music in her headphones and looking at the trees on her way home.",
+        "One day, while she was changing songs, she heard strange, unpolished music.",
+        "She took off her headphones and followed the music through the park.",
+        "She saw a kind‑looking old woman sitting on a small bench and playing the violin.",
+        "While her music wasn’t perfect, there was something warm and welcoming about it.",
+        "So, Sally walked closer.",
+        "The following day, they met at the same bench.",
+        "Sally was happy to hear the old woman’s music again, but when she sat, the woman stopped playing.",
+        "“Today is your first full lesson,” she said as she handed the violin to Sally.",
+        "She showed the young woman how to place her fingers on the strings.",
+        "After an hour, she had learned some basics.",
+        "Then, the old woman played the same music from the day before.",
+        "Sally promised to meet her every day and started walking home.",
+        "As she walked, simple, unpolished music was playing in her mind.",
+        "The old woman asked Sally if she played any instruments.",
+        "Suddenly, Sally remembered learning the recorder from her older sister Beatrice when she was a girl.",
+        "Beatrice had said, “You just have no musical talent”.",
+        "Sally looked back to the old woman sadly and told her the story.",
+        "The old woman winked, handed the violin to Sally, and said, “You don’t need talent to enjoy playing”.",
+        "Feeling brave, Sally accepted the instrument and tried playing.",
+        "The sound was rough, and she felt embarrassed.",
+        "But the old woman just smiled and said, “That’s how it begins. I hope to see you again tomorrow”.",
+        "“Hello! Are you going to listen to my performance?” the old woman looked up and asked.",
+        "Sally laughed and replied, “Oh sorry, I was just passing by”.",
+        "She turned to continue walking home, but decided to stop for a bit and listen.",
+        "After the woman’s music finished, Sally asked her when she had started playing the violin.",
+        "“I just started last year, but I always wanted to learn,” the woman answered.",
+        "Sally was impressed by her response.",
+        "Even though she loved listening to music, she could not play any instruments well."
+      ]
+    }
+  ]
+}</script>
+  <script>
+    const settingsKey = 'translationWorksheetSettings';
+    const controls = Array.from(document.querySelectorAll('[data-var]'));
+    const worksheet = document.querySelector('#worksheet');
+    const data = JSON.parse(document.querySelector('#worksheet-data').textContent);
+
+    function applyControl(control) {
+      const unit = control.dataset.unit;
+      const value = `${control.value}${unit}`;
+      document.documentElement.style.setProperty(control.dataset.var, value);
+      document.querySelector(`#${control.id}Value`).textContent = value;
+    }
+
+    function saveSettings() {
+      const values = Object.fromEntries(controls.map((control) => [control.id, control.value]));
+      localStorage.setItem(settingsKey, JSON.stringify(values));
+    }
+
+    function loadSettings() {
+      const saved = JSON.parse(localStorage.getItem(settingsKey) || '{}');
+      controls.forEach((control) => {
+        if (saved[control.id]) control.value = saved[control.id];
+        applyControl(control);
+        control.addEventListener('input', () => {
+          applyControl(control);
+          saveSettings();
+        });
+      });
+    }
+
+    function renderWorksheet() {
+      let number = 1;
+      worksheet.innerHTML = `
+        <header>
+          <h1>${data.title} - 한 줄씩 해석 연습</h1>
+          <p class="meta">총 195문장 · 위 설정을 조절한 뒤 “인쇄 / PDF 저장”을 누르세요.</p>
+          ${data.note ? `<p class="meta">${data.note}</p>` : ''}
+        </header>
+      `;
+
+      for (const section of data.sections) {
+        const sectionElement = document.createElement('section');
+        sectionElement.innerHTML = `<h2>${section.title}</h2>`;
+        for (const sentence of section.sentences) {
+          const item = document.createElement('article');
+          item.className = 'item';
+          item.innerHTML = `
+            <div class="sentence"><span class="number">${number}.</span><span>${sentence}</span></div>
+            <div class="answer-label">Korean interpretation / 한국어 해석</div>
+            <div class="answer-space" aria-hidden="true"></div>
+          `;
+          sectionElement.appendChild(item);
+          number += 1;
+        }
+        worksheet.appendChild(sectionElement);
+      }
+    }
+
+    document.querySelector('#resetSettings').addEventListener('click', () => {
+      localStorage.removeItem(settingsKey);
+      controls.forEach((control) => {
+        control.value = control.defaultValue;
+        applyControl(control);
+      });
+    });
+
+    loadSettings();
+    renderWorksheet();
+  </script>
+</body>
+</html>
