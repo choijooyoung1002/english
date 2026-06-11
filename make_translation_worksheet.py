@@ -33,8 +33,9 @@ def clean_inline(text: str) -> str:
     return " ".join(text.split())
 
 
-def parse_content(markdown: str) -> tuple[str, list[Section]]:
+def parse_content(markdown: str) -> tuple[str, str, list[Section]]:
     title = "Line-by-Line English Interpretation Worksheet"
+    note = ""
     sections: list[Section] = []
     current: Section | None = None
 
@@ -42,17 +43,21 @@ def parse_content(markdown: str) -> tuple[str, list[Section]]:
         line = raw_line.strip()
         if line.startswith("# "):
             title = clean_inline(line[2:])
+        elif line.startswith("**참고:**"):
+            note = clean_inline(line)
+            note = note.removeprefix("참고:").strip()
         elif line.startswith("## "):
             current = Section(clean_inline(line[3:]), [])
             sections.append(current)
         elif line.startswith("- ") and current is not None:
             current.sentences.append(clean_inline(line[2:]))
-    return title, sections
+    return title, note, sections
 
 
-def build_html(title: str, sections: list[Section]) -> str:
+def build_html(title: str, note: str, sections: list[Section]) -> str:
     data = {
         "title": title,
+        "note": note,
         "sections": [section.__dict__ for section in sections],
     }
     payload = (
@@ -61,6 +66,8 @@ def build_html(title: str, sections: list[Section]) -> str:
         .replace(">", "\\u003e")
         .replace("&", "\\u0026")
     )
+    sentence_count = sum(len(section.sentences) for section in sections)
+
     return f"""<!doctype html>
 <html lang=\"ko\">
 <head>
@@ -73,7 +80,7 @@ def build_html(title: str, sections: list[Section]) -> str:
       --answer-lines: 4;
       --line-step: 30px;
       --item-gap: 18px;
-      --page-padding: 10mm;
+      --page-padding: 14mm;
       --english-color: #111827;
       --muted-color: #64748b;
       --rule-color: #cbd5e1;
@@ -149,15 +156,21 @@ def build_html(title: str, sections: list[Section]) -> str:
     }}
 
     header {{
-      margin-bottom: 14px;
-      border-bottom: 1px solid #0f172a;
-      padding-bottom: 8px;
+      margin-bottom: 22px;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 14px;
     }}
 
     h1 {{
       margin: 0 0 8px;
       font-size: 1.55rem;
       line-height: 1.25;
+    }}
+
+    .meta {{
+      margin: 0;
+      color: var(--muted-color);
+      font-size: 0.88rem;
     }}
 
     h2 {{
@@ -176,8 +189,8 @@ def build_html(title: str, sections: list[Section]) -> str:
 
     .sentence {{
       display: grid;
-      grid-template-columns: 2em 1fr;
-      gap: 6px;
+      grid-template-columns: 2.7em 1fr;
+      gap: 8px;
       color: var(--english-color);
       font-family: Georgia, \"Times New Roman\", serif;
       font-size: 1em;
@@ -191,10 +204,17 @@ def build_html(title: str, sections: list[Section]) -> str:
       text-align: right;
     }}
 
+    .answer-label {{
+      margin: 7px 0 3px 3.3em;
+      color: var(--muted-color);
+      font-size: 0.78em;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }}
+
     .answer-space {{
       height: calc(var(--answer-lines) * var(--line-step));
-      margin-top: 5px;
-      margin-left: 0;
+      margin-left: 3.3em;
       background-image: repeating-linear-gradient(
         to bottom,
         transparent 0,
@@ -206,7 +226,7 @@ def build_html(title: str, sections: list[Section]) -> str:
 
     @page {{
       size: A4;
-      margin: 7mm;
+      margin: 10mm;
     }}
 
     @media print {{
@@ -236,8 +256,8 @@ def build_html(title: str, sections: list[Section]) -> str:
     <label>문항 간격 <output for=\"itemGap\" id=\"itemGapValue\">18px</output>
       <input id=\"itemGap\" data-var=\"--item-gap\" data-unit=\"px\" type=\"range\" min=\"8\" max=\"36\" step=\"1\" value=\"18\">
     </label>
-    <label>페이지 여백 <output for=\"pagePadding\" id=\"pagePaddingValue\">10mm</output>
-      <input id=\"pagePadding\" data-var=\"--page-padding\" data-unit=\"mm\" type=\"range\" min=\"4\" max=\"18\" step=\"1\" value=\"10\">
+    <label>페이지 여백 <output for=\"pagePadding\" id=\"pagePaddingValue\">14mm</output>
+      <input id=\"pagePadding\" data-var=\"--page-padding\" data-unit=\"mm\" type=\"range\" min=\"6\" max=\"24\" step=\"1\" value=\"14\">
     </label>
     <button type=\"button\" onclick=\"window.print()\">인쇄 / PDF 저장</button>
     <button class=\"secondary\" type=\"button\" id=\"resetSettings\">기본값</button>
@@ -280,7 +300,9 @@ def build_html(title: str, sections: list[Section]) -> str:
       let number = 1;
       worksheet.innerHTML = `
         <header>
-          <h1>${{data.title}}</h1>
+          <h1>${{data.title}} - 한 줄씩 해석 연습</h1>
+          <p class=\"meta\">총 {sentence_count}문장 · 위 설정을 조절한 뒤 “인쇄 / PDF 저장”을 누르세요.</p>
+          ${{data.note ? `<p class=\"meta\">${{data.note}}</p>` : ''}}
         </header>
       `;
 
@@ -292,6 +314,7 @@ def build_html(title: str, sections: list[Section]) -> str:
           item.className = 'item';
           item.innerHTML = `
             <div class=\"sentence\"><span class=\"number\">${{number}}.</span><span>${{sentence}}</span></div>
+            <div class=\"answer-label\">Korean interpretation / 한국어 해석</div>
             <div class=\"answer-space\" aria-hidden=\"true\"></div>
           `;
           sectionElement.appendChild(item);
@@ -318,8 +341,8 @@ def build_html(title: str, sections: list[Section]) -> str:
 
 
 def main() -> None:
-    title, sections = parse_content(SOURCE.read_text(encoding="utf-8"))
-    OUTPUT.write_text(build_html(title, sections), encoding="utf-8")
+    title, note, sections = parse_content(SOURCE.read_text(encoding="utf-8"))
+    OUTPUT.write_text(build_html(title, note, sections), encoding="utf-8")
     sentence_count = sum(len(section.sentences) for section in sections)
     print(f"Wrote {OUTPUT} with {sentence_count} sentence prompts.")
 

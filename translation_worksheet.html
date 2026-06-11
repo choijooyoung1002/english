@@ -10,7 +10,7 @@
       --answer-lines: 4;
       --line-step: 30px;
       --item-gap: 18px;
-      --page-padding: 10mm;
+      --page-padding: 14mm;
       --english-color: #111827;
       --muted-color: #64748b;
       --rule-color: #cbd5e1;
@@ -86,15 +86,21 @@
     }
 
     header {
-      margin-bottom: 14px;
-      border-bottom: 1px solid #0f172a;
-      padding-bottom: 8px;
+      margin-bottom: 22px;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 14px;
     }
 
     h1 {
       margin: 0 0 8px;
       font-size: 1.55rem;
       line-height: 1.25;
+    }
+
+    .meta {
+      margin: 0;
+      color: var(--muted-color);
+      font-size: 0.88rem;
     }
 
     h2 {
@@ -113,8 +119,8 @@
 
     .sentence {
       display: grid;
-      grid-template-columns: 2em 1fr;
-      gap: 6px;
+      grid-template-columns: 2.7em 1fr;
+      gap: 8px;
       color: var(--english-color);
       font-family: Georgia, "Times New Roman", serif;
       font-size: 1em;
@@ -128,10 +134,17 @@
       text-align: right;
     }
 
+    .answer-label {
+      margin: 7px 0 3px 3.3em;
+      color: var(--muted-color);
+      font-size: 0.78em;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
     .answer-space {
       height: calc(var(--answer-lines) * var(--line-step));
-      margin-top: 5px;
-      margin-left: 0;
+      margin-left: 3.3em;
       background-image: repeating-linear-gradient(
         to bottom,
         transparent 0,
@@ -143,7 +156,7 @@
 
     @page {
       size: A4;
-      margin: 7mm;
+      margin: 10mm;
     }
 
     @media print {
@@ -173,8 +186,8 @@
     <label>문항 간격 <output for="itemGap" id="itemGapValue">18px</output>
       <input id="itemGap" data-var="--item-gap" data-unit="px" type="range" min="8" max="36" step="1" value="18">
     </label>
-    <label>페이지 여백 <output for="pagePadding" id="pagePaddingValue">10mm</output>
-      <input id="pagePadding" data-var="--page-padding" data-unit="mm" type="range" min="4" max="18" step="1" value="10">
+    <label>페이지 여백 <output for="pagePadding" id="pagePaddingValue">14mm</output>
+      <input id="pagePadding" data-var="--page-padding" data-unit="mm" type="range" min="6" max="24" step="1" value="14">
     </label>
     <button type="button" onclick="window.print()">인쇄 / PDF 저장</button>
     <button class="secondary" type="button" id="resetSettings">기본값</button>
@@ -184,6 +197,7 @@
 
   <script id="worksheet-data" type="application/json">{
   "title": "2027학년도 6월 모의평가 영어 – 읽기 부분 문장 추출",
+  "note": "아래 문장들은 27학년도 6월 모의평가 영어 문제지에서 첫 두 장(듣기 영역)을 제외하고 읽기 영역에 등장하는 영어 문장을 하나씩 분리하여 정리한 것이다. 한국어 안내문, 보기 문항 및 숫자 표기는 제외하였다.",
   "sections": [
     {
       "title": "동물 의식과 ‘the ghost’ (문항 21)",
@@ -526,7 +540,9 @@
       let number = 1;
       worksheet.innerHTML = `
         <header>
-          <h1>${data.title}</h1>
+          <h1>${data.title} - 한 줄씩 해석 연습</h1>
+          <p class="meta">총 195문장 · 위 설정을 조절한 뒤 “인쇄 / PDF 저장”을 누르세요.</p>
+          ${data.note ? `<p class="meta">${data.note}</p>` : ''}
         </header>
       `;
 
@@ -538,6 +554,7 @@
           item.className = 'item';
           item.innerHTML = `
             <div class="sentence"><span class="number">${number}.</span><span>${sentence}</span></div>
+            <div class="answer-label">Korean interpretation / 한국어 해석</div>
             <div class="answer-space" aria-hidden="true"></div>
           `;
           sectionElement.appendChild(item);
